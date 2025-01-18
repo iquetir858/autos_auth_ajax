@@ -1,1 +1,2 @@
-# autos_auth_ajax
+### Project description:
+A PHP web page that consumes the authenticated SOAP server using AJAX
