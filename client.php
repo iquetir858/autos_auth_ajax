@@ -1,22 +1,24 @@
 <?php
-include 'db_pass.php';
+require_once 'db_pass.php';
 class Client
 {
+    private $instance;
     //constructor que conecta con el server
     public function __construct()
     {
         $params = array(
             'location' => 'http://localhost/autos_auth_ajax/server.php',
             'uri' => 'http://localhost/autos_auth_ajax/server.php',
-            'trace' => 1
+            'trace' => 1,
+            'exceptions' => true
         );
 
-        $this->instance = new SoapClient(NULL, $params);
+        $this->instance = new SoapClient(null, $params);
 
         //Establecer las cabeceras --> Datos de autenticación en el db_pass.php (.gitignore)
         $auth_params = new stdClass();
-        $auth_params->username = $dbUser;
-        $auth_params->password = $dbPassword;
+        $auth_params->username = 'inma';
+        $auth_params->password = 'daw';
 
         $header_params = new SoapVar($auth_params, SOAP_ENC_OBJECT);
         $header = new SoapHeader('http://localhost/autos_auth_ajax/', 'authenticate', $header_params, false);
@@ -26,22 +28,22 @@ class Client
 
     /**
      * Función que devuelve las marcas-url de la llamada al servidor
-     * @return void
+     * @return mixed
      */
     public function ObtenerMarcasUrl()
     {
-        $this->instance->ObtenerMarcasUrl();
+        return $this->instance->ObtenerMarcasUrl();
     }
 
     /**
      * Función que devuelve las modelos de cada marca de la llamada al servidor
      * @param mixed $marca (string)
-     * @return void
+     * @return mixed
      */
     public function ObtenerModelosPorMarca($marca)
     {
-        $this->instance->ObtenerModelosPorMarca($marca);
-
+        //return $this->instance->__soapCall('ObtenerModelosPorMarca', array($marca));
+        return $this->instance->ObtenerModelosPorMarca($marca);
     }
 }
 
