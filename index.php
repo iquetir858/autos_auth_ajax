@@ -10,7 +10,8 @@
 	<title>Concesionario Multimarca</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<link rel="stylesheet" type="text/css" href="style.css" />
+	<link rel="stylesheet" type="text/css" href="assets/css/main.css" />
+	<link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css" />
 </head>
 
 <body id="top">
