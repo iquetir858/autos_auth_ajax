@@ -23,9 +23,9 @@ class Server
     {
         try {
             require_once 'db_pass.php';
-            $dbHost = 'localhost';
-            $dbName = 'coches';
-            $connection = new PDO("mysql:host=" . $dbHost . ";dbname=" . $dbName . ";", $dbUser, $dbPassword);
+            $dbHost = 'sql103.infinityfree.com';
+            $dbName = 'if0_37391549_coches';
+            $connection = new PDO("mysql:host=" . $dbHost . ";dbname=" . $dbName . ";port=3306;", $dbUser, $dbPassword);
             $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             return $connection;
         } catch (PDOException $e) {
@@ -96,7 +96,10 @@ class Server
 } //Final de la clase
 
 
-$params = array('uri' => 'http://localhost/autos_auth_ajax/server.php');
+$params = array(
+    'uri' => 'http://inma.great-site.net/autos_auth_ajax/server.php',
+    'encoding' => 'ISO-8859-1'
+);
 $server = new SoapServer(null, $params);
 $server->setClass('Server');
 $server->handle();

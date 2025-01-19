@@ -7,10 +7,11 @@ class Client
     public function __construct()
     {
         $params = array(
-            'location' => 'http://localhost/autos_auth_ajax/server.php',
-            'uri' => 'http://localhost/autos_auth_ajax/server.php',
+            'location' => 'http://inma.great-site.net/autos_auth_ajax/server.php',
+            'uri' => 'http://inma.great-site.net/autos_auth_ajax/server.php',
             'trace' => 1,
-            'exceptions' => true
+            'exceptions' => true,
+            'encoding' => 'ISO-8859-1'
         );
 
         $this->instance = new SoapClient(null, $params);
@@ -21,7 +22,7 @@ class Client
         $auth_params->password = 'daw';
 
         $header_params = new SoapVar($auth_params, SOAP_ENC_OBJECT);
-        $header = new SoapHeader('http://localhost/autos_auth_ajax/', 'authenticate', $header_params, false);
+        $header = new SoapHeader('http://inma.great-site.net/autos_auth_ajax/', 'authenticate', $header_params, false);
         $this->instance->__setSoapHeaders(array($header));
 
     }

@@ -37,9 +37,10 @@
     <h1>Modelos disponibles marca: <?php echo $marca ?> </h1>
     <?php
     foreach ($modelos as $modelo) {
+        $marcaLower=strtolower($marca);
     ?>
         <figure>
-            <img src="images/<?php echo $marca ?>.png" alt="logo <?php echo $marca ?>" width="75px" />
+            <img src="images/<?php echo $marcaLower ?>.png" alt="logo <?php echo $marca ?>" width="75px" />
             <figcaption><?php echo $modelo["modelo"] ?></figcaption>
         </figure>
         <?php
