@@ -1,5 +1,4 @@
 <?php
-include 'db_pass.php';
 class Server
 {
     //Función de conexión 
@@ -18,11 +17,12 @@ class Server
 
     /**
      * Función que lleva a cabo la conexión a la base de datos(?)
-     * @return void
+     * @return PDO | null
      */
     public function connect()
     {
         try {
+            require_once 'db_pass.php';
             $dbHost = 'localhost';
             $dbName = 'coches';
             $connection = new PDO("mysql:host=" . $dbHost . ";dbname=" . $dbName . ";", $dbUser, $dbPassword);
@@ -34,9 +34,15 @@ class Server
         }
     }
 
+    /**
+     * Función para comprobar si está autenticado
+     * @param mixed $header_params
+     * @throws \SoapFault
+     * @return bool
+     */
     public function authenticate($header_params)
     {
-        if ($header_params->username == 'ies' && $header_params->password == 'daw') {
+        if ($header_params->username == 'inma' && $header_params->password == 'daw') {
             $this->IsAuthenticated = true;
             return true;
         } else {
@@ -44,18 +50,43 @@ class Server
         }
     }
 
+    /**
+     * Función que accede a la base de datos y obtiene las marcas y las url de cada una de ellas
+     * @return array|string
+     */
     public function ObtenerMarcasUrl()
     {
         //Si no se establece la conexión o no está autenticado --> Error
-        if (is_null($this->con))
+        if (is_null($this->connection))
             return "ERROR";
         if (!$this->IsAuthenticated)
             return "Not Authenticated";
 
         //Hacemos la petición de las marcas y url a la base de datos
-        $sql = "SELECT marca, url from marcas";
+        $sql = "SELECT marca, url FROM marcas";
         $data = $this->connection->query($sql);
-        return array();
+        return $data->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Función que obtiene el listado de modelos de una marca
+     * @param mixed $marca
+     * @return array|string
+     */
+    public function ObtenerModelosPorMarca($marca)
+    {
+        //Si no se establece la conexión o no está autenticado --> Error
+        if (is_null($this->connection))
+            return "ERROR";
+        if (!$this->IsAuthenticated)
+            return "Not Authenticated";
+
+        //Hacemos la petición de las marcas y url a la base de datos
+        $marca = htmlentities($marca);
+        $sql = "SELECT modelo FROM modelos WHERE marca=(SELECT id FROM marcas WHERE marca= :marca)";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->bindParam(":marca", $marca);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
 } //Final de la clase
