@@ -10,7 +10,7 @@
 	<title>Concesionario Multimarca</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<link rel="stylesheet" href="assets/css/main.css" />
+	<link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 
 <body id="top">
@@ -43,17 +43,18 @@
 				<?php
 				require_once "client.php";
 				$marcas = $client->ObtenerMarcasUrl();
-
-				foreach ($marcas as $marca => $url) {
+				//var_dump($marcas[0]);
+				foreach ($marcas as $marca) {
 					?>
 					<div class="box">
 						<a href="<?= $url ?>" class="image fit" title="ver video"><img
-								src="images/<?= strtolower($marca) ?>.png" alt="logo <?= $marca ?>" /></a>
+								src="images/<?= strtolower($marca['marca']) ?>.png" alt="logo <?= $marca ?>" /></a>
 						<div class="inner">
-							<h3><a href="modelos.php?marca=<?= $marca ?>" data-poptrox="ajax,600x400">Modelos
-									<?= $marca ?></a></h3>
-							<a href="<?= $url ?>" class="button style2 fit" data-poptrox="youtube,800x400">Ver video
-								<?= $marca ?></a>
+							<h3><a href="modelos.php?marca=<?= $marca['marca'] ?>" data-poptrox="ajax,600x400">Modelos
+									<?= $marca['marca'] ?></a></h3>
+							<a href="<?= $marca['url'] ?>" class="button style2 fit" data-poptrox="youtube,800x400">Ver
+								video
+								<?= $marca['marca'] ?></a>
 						</div>
 					</div>
 					<?php
@@ -89,6 +90,20 @@
 	<script src="assets/js/skel.min.js"></script>
 	<script src="assets/js/util.js"></script>
 	<script src="assets/js/main.js"></script>
+
+	<div class="poptrox-overlay"
+		style="position: fixed; left: 0px; top: 0px; z-index: 10001; width: 100%; height: 100%; text-align: center; cursor: pointer; display: none; opacity: 1;">
+		<div style="display:inline-block;height:100%;vertical-align:middle;"></div>
+		<div
+			style="position:absolute;left:0;top:0;width:100%;height:100%;background:#222226;opacity:0.75;filter:alpha(opacity=75);">
+		</div>
+		<div class="poptrox-popup"
+			style="display: none; vertical-align: middle; position: relative; z-index: 1; cursor: pointer; min-width: 200px; min-height: 100px; width: auto; height: auto;">
+			<div class="loader" style="display: none;"></div>
+			<div class="pic" style="display: none; text-indent: 0px;"></div><span class="closer"
+				style="cursor: pointer; display: none;">×</span>
+		</div>
+	</div>
 
 </body>
 

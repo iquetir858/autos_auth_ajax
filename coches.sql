@@ -20,7 +20,7 @@ SET time_zone = "+00:00";
 --
 -- Database: `coches`
 --
-CREATE DATABASE IF NOT EXISTS `coches` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+CREATE DATABASE IF NOT EXISTS `coches` DEFAULT CHARACTER SET utf8mb4;
 USE `coches`;
 
 -- --------------------------------------------------------
