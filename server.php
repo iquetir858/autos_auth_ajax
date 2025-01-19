@@ -83,10 +83,14 @@ class Server
 
         //Hacemos la petición de las marcas y url a la base de datos
         $marca = htmlentities($marca);
-        $sql = "SELECT modelo FROM modelos WHERE marca=(SELECT id FROM marcas WHERE marca= :marca)";
+        /*$sql = "SELECT modelo FROM modelos WHERE marca=(SELECT id FROM marcas WHERE marca= :marca)";
         $stmt = $this->connection->prepare($sql);
         $stmt->bindParam(":marca", $marca);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);*/
+
+        $sql = "SELECT modelo FROM modelos WHERE marca=(SELECT id FROM marcas WHERE marca = '$marca')";
+        $data = $this->connection->query($sql);
+        return $data->fetchAll(PDO::FETCH_ASSOC);
     }
 
 } //Final de la clase
